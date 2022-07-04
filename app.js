@@ -23,7 +23,7 @@ async function httpRequest(url) {
 
 
 
-app.get("/items", async (req, res) => {
+app.get("/api/items", async (req, res) => {
   const searchQuery = req.query.q
   const url = `https://api.mercadolibre.com/sites/MLA/search?q=${searchQuery}&limit=4`
 
