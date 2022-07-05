@@ -1,33 +1,25 @@
 //import express from "express"
 const express = require("express")
 const axios = require("axios")
+const { descriptionRequest, productsRequest } = require("./apiRequest")
 
 const app = express()
 const port = 3000
-
-
-async function httpRequest(url) {
- 
-  
-  try {
-    const httpsResponse = await axios.get(url)
-    .then((res => {
-      return res.data.results
-    }))
-    //TODO Data structure to return
-    return httpsResponse
-  } catch (error) {
-    console.log(error)
-  }
-}
-
 
 
 app.get("/api/items", async (req, res) => {
   const searchQuery = req.query.q
   const url = `https://api.mercadolibre.com/sites/MLA/search?q=${searchQuery}&limit=4`
 
-  const response = await httpRequest(url)
+  const response = await productsRequest(url)
+  res.status(200).send({response: response})
+})
+
+app.get("/api/items/:id", async (req, res) => {
+  const searchId = req.params.id
+  const url = `https://api.mercadolibre.com/items/${searchId}`
+
+  const response = await descriptionRequest(url)
   res.status(200).send({response: response})
 })
 
