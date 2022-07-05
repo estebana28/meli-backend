@@ -17,9 +17,11 @@ app.get("/api/items", async (req, res) => {
 
 app.get("/api/items/:id", async (req, res) => {
   const searchId = req.params.id
-  const url = `https://api.mercadolibre.com/items/${searchId}`
+  const urlId = `https://api.mercadolibre.com/items/${searchId}`
+  const urlDesc = `https://api.mercadolibre.com/items/${searchId}/description`
 
-  const response = await descriptionRequest(url)
+
+  const response = await descriptionRequest(urlId, urlDesc)
   res.status(200).send({response: response})
 })
 
