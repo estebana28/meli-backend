@@ -19,7 +19,7 @@ async function descriptionRequest(url) {
   
   try {
     const httpsResponse = await axios.get(url)
-    .then((res => res))
+    .then((res => res.data))
     return httpsResponse
   } catch (error) {
     console.log(error)
