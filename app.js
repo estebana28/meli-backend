@@ -1,12 +1,12 @@
 //import express from "express"
 const express = require("express")
-const axios = require("axios")
-const { descriptionRequest, productsRequest } = require("./apiRequest")
+const { descriptionRequest, productsRequest } = require("./apiRequest.ts")
 
 const app = express()
 const port = 3000
 
 
+// Endpoint de busqueda
 app.get("/api/items", async (req, res) => {
   const searchQuery = req.query.q
   const url = `https://api.mercadolibre.com/sites/MLA/search?q=${searchQuery}&limit=4`
@@ -15,11 +15,12 @@ app.get("/api/items", async (req, res) => {
   res.status(200).send({response: response})
 })
 
+
+// Endpoint de fetching para descripcion del articulo solicitado
 app.get("/api/items/:id", async (req, res) => {
   const searchId = req.params.id
   const urlId = `https://api.mercadolibre.com/items/${searchId}`
   const urlDesc = `https://api.mercadolibre.com/items/${searchId}/description`
-
 
   const response = await descriptionRequest(urlId, urlDesc)
   res.status(200).send({response: response})
@@ -27,7 +28,7 @@ app.get("/api/items/:id", async (req, res) => {
 
 // start server and open port 3003
 app.listen(port, () => {
-  console.log('Listening to port 3000');
+  console.log('Listening to port 3003');
 });
 
 module.exports = app
