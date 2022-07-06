@@ -1,6 +1,6 @@
 //import express from "express"
-const express = require("express")
-import { descriptionRequest, productsRequest } from "./apiRequest.ts"
+import express from "express"
+import { descriptionRequest, productsRequest } from "./apiRequest"
 
 const app = express()
 const port = 3000
