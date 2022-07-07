@@ -1,4 +1,4 @@
-const axios = require("axios")
+import axios from "axios"
 import { RouteData, ItemData, ProductInfo, ItemDescription, CategoryData } from "./models"
 
 
@@ -25,7 +25,7 @@ async function getMatchCategory(categories: [CategoryData]) {
 
 
 // Hace un data fetch a la api de MELI y trae los resultados en base al parametro de busqueda
-async function productsRequest(url: string) {
+export async function productsRequest(url: string) {
   try {
     const httpsResponse = await axios.get(url)
     .then(async (res: any) =>  {
@@ -38,12 +38,14 @@ async function productsRequest(url: string) {
             amount: result.price,
             decimals: result.decimals || "",
           },
-          picture: result.thumnail,
+          picture: result.thumbnail,
           condition: result.condition,
           free_shipping: result.shipping.free_shipping,
         }
         return itemData
       });
+      console.log(itemsArray);
+      
       const categoryResult: string[] = await getMatchCategory(res.data.available_filters[0].values)
       const results: ProductInfo = {
         author: { 
@@ -62,7 +64,7 @@ async function productsRequest(url: string) {
 }
 
 // Hace un data fetch de la descripcion de un producto
-async function descriptionRequest(urlId: string, urlDesc: string) {
+export async function descriptionRequest(urlId: string, urlDesc: string) {
   const promiseId = await axios.get(urlId)
   const promiseDesc = await axios.get(urlDesc)
   
@@ -92,5 +94,3 @@ async function descriptionRequest(urlId: string, urlDesc: string) {
   })
   return httpsResponse
 }
-
-module.exports = { productsRequest, descriptionRequest }

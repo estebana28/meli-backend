@@ -3,11 +3,11 @@ import express from "express"
 import { descriptionRequest, productsRequest } from "./apiRequest"
 
 const app = express()
-const port = 3000
+const port = 3003
 
 
 // Endpoint de busqueda
-app.get("/api/items", async (req, res) => {
+app.get("/api/items", async (req: any, res: any) => {
   const searchQuery = req.query.q
   const url = `https://api.mercadolibre.com/sites/MLA/search?q=${searchQuery}&limit=4`
 
@@ -17,7 +17,7 @@ app.get("/api/items", async (req, res) => {
 
 
 // Endpoint de fetching para descripcion del articulo solicitado
-app.get("/api/items/:id", async (req, res) => {
+app.get("/api/items/:id", async (req: any, res: any) => {
   const searchId = req.params.id
   const urlId = `https://api.mercadolibre.com/items/${searchId}`
   const urlDesc = `https://api.mercadolibre.com/items/${searchId}/description`
